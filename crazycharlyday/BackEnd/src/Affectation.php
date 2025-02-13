@@ -28,8 +28,8 @@ class Affectation
                 }
             }
         }
-        usort($salaries, function ($a, $b) {
-            return count($a->competences) - count($b->competences);
+       usort($salaries, function ($a, $b) {
+           return count($a->competences) - count($b->competences);
         });
         foreach ($salaries as $salarie) {
             $salarie->trierTabComp();
@@ -58,11 +58,6 @@ class Affectation
         echo "Le score est de : {$this->calculerScore($this->affectations, $salaries, $clients)}";
         return $this->affectations;
     }
-
-    public function compareCompetenceSize(int $size1, int $size2): bool {
-        return $size1 > $size2;
-    }
-
 
     public function calculerScore(array $affectationCourante, $salaries, $clients): int
     {
