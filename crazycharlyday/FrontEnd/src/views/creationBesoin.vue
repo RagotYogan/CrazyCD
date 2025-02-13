@@ -29,47 +29,38 @@ export default {
             const isEmail = emailPattern.test(this.clientName);
 
             if (!isEmail) {
-                Toastify({
-                    text: "Veuillez entrer une adresse email valide.",
-                    duration: 3000,
-                    gravity: "top",
-                    position: "right",
-                    backgroundColor: "linear-gradient(to right, #ff6b6b, #c53030)",
-                    close: true
-                }).showToast();
+                this.afficherToastify("Veuillez saisir une adresse email valide.");
                 return false;
             }
             if (!this.libelleBesoins.trim()) {
-                Toastify({
-                    text: "Veuillez saisir un libelle pour le besoin.",
-                    duration: 3000,
-                    gravity: "top",
-                    position: "right",
-                    backgroundColor: "linear-gradient(to right, #ff6b6b, #c53030)",
-                    close: true
-                }).showToast();
+                this.afficherToastify("Veuillez saisir un libellé pour le besoin.");
                 return false;
             }
             if (!this.competencesRequises.trim() && !this.metierRequis.trim()) {
-                Toastify({
-                    text: "Veuillez saisir au moins une compétence ou un métier pour le besoin.",
-                    duration: 3000,
-                    gravity: "top",
-                    position: "right",
-                    backgroundColor: "linear-gradient(to right, #ff6b6b, #c53030)",
-                    close: true
-                }).showToast();
+                this.afficherToastify("Veuillez saisir au moins une compétence ou un métier.");
                 return false;
             }
+
+            this.afficherToastify("Formulaire soumis avec succès.");
+
+            const besoin = {
+                client: this.clientName,
+                libelle: this.libelleBesoins,
+                competence: (!this.competencesRequises.trim() ? this.metierRequis : this.competencesRequises),
+
+            }
+            console.log(besoin);
+            return this.clientName && this.libelleBesoins && (this.competencesRequises || this.metierRequis);
+        },
+        afficherToastify(message){
             Toastify({
-                text: "Besoin créé avec succès !",
+                text: message,
                 duration: 3000,
                 gravity: "top",
                 position: "right",
-                backgroundColor: "linear-gradient(to right, #00b09b, #96c93d)",
+                backgroundColor: "linear-gradient(to right, #ff6b6b, #c53030)",
                 close: true
             }).showToast();
-            return this.clientName && this.libelleBesoins && (this.competencesRequises || this.metierRequis);
         }
     }
 };
