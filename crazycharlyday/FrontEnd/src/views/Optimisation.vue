@@ -13,6 +13,7 @@
 import DataTable from 'primevue/datatable';
 import axios from 'axios';
 import FileUpload from "primevue/fileupload";
+import {defineConfig} from "vite";
 
 export default {
   components: {
@@ -31,9 +32,15 @@ export default {
         const formData = new FormData();
         formData.append('file', file);
         console.log('Uploading file:', file);
+        const config = {
+          headers: {
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin': '*'
+          }
+        };
 
         try {
-          const response = await axios.post('http://docketu.iutnc.univ-lorraine.fr:60081/optimisation', formData);
+          const response = await axios.post('http://docketu.iutnc.univ-lorraine.fr:60081/optimisation', formData, config);
           this.tableData = response.data.affectations;
         } catch (error) {
           console.error('Error uploading file:', error);
