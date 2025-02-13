@@ -66,7 +66,7 @@ class Affectation
 
     public function calculerScore(array $affectationCourante, $salaries, $clients): int
     {
-        $this->score = 0; 
+        $this->score = 0;
         // Tester si tous les salariés sont affectés
         foreach ($salaries as $salarie) {
             if (!$salarie->getAffecte()) {
