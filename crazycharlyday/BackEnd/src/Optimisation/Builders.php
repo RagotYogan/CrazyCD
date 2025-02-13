@@ -1,9 +1,12 @@
 <?php
+
+namespace BackEnd\Optimisation;
 require_once "Affectation.php";
 
 class Builders
 {
-    public static function csvBuilder(int $score , array $affectations, string $filename): void {
+    public static function csvBuilder(int $score, array $affectations, string $filename): void
+    {
         $file = fopen($filename, "w");
 
         // Ajouter l'en-tête du fichier CSV
@@ -22,8 +25,8 @@ class Builders
     }
 
 
-
-    public static function jsonBuilder(int $score, array $affectations, string $filename): void {
+    public static function jsonBuilder(int $score, array $affectations, string $filename): void
+    {
         $data = [
             "score" => $score,
             "affectations" => []

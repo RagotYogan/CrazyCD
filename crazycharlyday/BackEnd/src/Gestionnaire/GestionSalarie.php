@@ -1,5 +1,7 @@
 <?php
 
+use BackEnd\Optimisation\Salarie;
+
 class GestionSalaries {
     private array $salaries;
     private array $competences;

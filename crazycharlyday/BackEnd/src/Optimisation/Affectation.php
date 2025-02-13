@@ -1,5 +1,6 @@
 <?php
 
+namespace BackEnd\Optimisation;
 class Affectation
 {
     public array $affectations = [];
@@ -28,18 +29,18 @@ class Affectation
                 }
             }
         }
-       usort($salaries, function ($a, $b) {
-           return count($a->competences) - count($b->competences);
+        usort($salaries, function ($a, $b) {
+            return count($a->competences) - count($b->competences);
         });
         foreach ($salaries as $salarie) {
             $salarie->trierTabComp();
-            while(!$salarie->getAffecte()){
+            while (!$salarie->getAffecte()) {
                 for ($i = 0; $i < count($superTab); $i++) {
-                    if ($i == count($salarie->competences ) || $salarie->getAffecte()){
+                    if ($i == count($salarie->competences) || $salarie->getAffecte()) {
                         break;
                     }
                     $type = array_keys($salarie->competences)[$i];
-                    if (!empty($superTab[$type])){
+                    if (!empty($superTab[$type])) {
                         // Ajouter dans le tableau d'affectation
                         $this->affectations[] = [$salarie, $type, $superTab[$type][0]];
                         $salarie->setAffecte(true);

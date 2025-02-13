@@ -1,6 +1,8 @@
 <?php
 
-enum Competences: string {
+namespace BackEnd\Optimisation;
+enum Competences: string
+{
     case BR = 'bricolage';
     case JD = 'jardinage';
     case MN = 'ménage';

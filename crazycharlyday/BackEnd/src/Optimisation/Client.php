@@ -1,14 +1,18 @@
 <?php
 
-class Client {
+namespace BackEnd\Optimisation;
+class Client
+{
     public string $nom;
     public array $besoins = [];
 
-    public function __construct(string $nom) {
+    public function __construct(string $nom)
+    {
         $this->nom = $nom;
     }
 
-    public function ajouterBesoin(string $type): void {
+    public function ajouterBesoin(string $type): void
+    {
         $this->besoins[$type] = ["traite" => false];
     }
 //
@@ -16,14 +20,16 @@ class Client {
 //        $this->nbBesoinsAffectes++;
 //    }
 
-    public  function setBesoinAffecte(string $type): void{
+    public function setBesoinAffecte(string $type): void
+    {
         $this->besoins[$type] = true;
     }
 
     /**
      * @return array
      */
-    public function getBesoins(): array {
+    public function getBesoins(): array
+    {
         return $this->besoins;
     }
 

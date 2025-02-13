@@ -1,8 +1,11 @@
 <?php
 
+namespace BackEnd\Optimisation;
+
 class Readers
 {
-    public static function lireJson(string $fichier): array {
+    public static function lireJson(string $fichier): array
+    {
         $clients = [];
         $salaries = [];
 
@@ -52,7 +55,8 @@ class Readers
     }
 
 
-    public static function lireCsv(string $fichier): array {
+    public static function lireCsv(string $fichier): array
+    {
         $clients = [];
         $salaries = [];
         $section = "";

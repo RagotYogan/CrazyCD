@@ -1,4 +1,9 @@
 <?php
+
+use BackEnd\Optimisation\Affectation;
+use BackEnd\Optimisation\Builders;
+use BackEnd\Optimisation\Readers;
+
 require_once "Salarie.php";
 require_once "Client.php";
 require_once "Affectation.php";

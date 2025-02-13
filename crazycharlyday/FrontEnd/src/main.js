@@ -17,6 +17,7 @@ import Menubar from 'primevue/menubar';
 import Menu from 'primevue/menu';
 import Dropdown from 'primevue/dropdown';
 import InputNumber from "primevue/inputnumber";
+import FileUpload from "primevue/fileupload";
 
 const app = createApp(App);
 
@@ -32,5 +33,6 @@ app.component('Menubar', Menubar);
 app.component('Menu', Menu);
 app.component('Dropdown', Dropdown);
 app.component('InputNumber', InputNumber);
+app.component('FileUpload', FileUpload);
 
 app.mount('#app');

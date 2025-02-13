@@ -10,6 +10,7 @@ use BackEnd\application\actions\GetSalaries;
 use BackEnd\application\actions\HomeAction;
 use BackEnd\application\actions\UpdateBesoin;
 use BackEnd\middlewares\CorsMiddleware;
+use BackEnd\application\actions\CreateOptimisation;
 
 return function(\Slim\App $app): \Slim\App {
     $app->add(CorsMiddleware::class);
@@ -26,6 +27,8 @@ return function(\Slim\App $app): \Slim\App {
 
     $app->get('/salaries', GetSalaries::class)->setName('getSalaries');
     $app->post('/salaries', CreateSalarie::class)->setName('createSalarie');
+
+    $app->get('/optimisation', CreateOptimisation::class)->setName('createOptimisation');
 
 
     return $app;
