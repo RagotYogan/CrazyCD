@@ -59,21 +59,8 @@ export default {
       newSalarie: { nom: '', competences: [] },
       newCompetence: '',
       newCompetenceInteret: null,
-      competences: [
-        { nom: 'Bricolage', id: 1 },
-        { nom: 'Jardinage', id: 2 },
-        // Ajoutez d'autres compétences ici
-      ],
-      salaries: [
-        // Exemple de salarié
-        {
-          nom: 'Alice',
-          competences: [
-            { nom: 'Bricolage', interet: 4 },
-            { nom: 'Ménage', interet: 7 },
-          ],
-        },
-      ],
+      competences: [],
+      salaries: [],
     };
   },
   methods: {

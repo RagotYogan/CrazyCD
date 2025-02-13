@@ -99,6 +99,20 @@ export default {
       salaries: [],
     };
   },
+  async mounted() {
+      const config = {
+          headers: {
+              'Content-Type': 'application/json',
+
+          }
+      };
+      await axios.get('http://localhost:8080/competences',config)
+       .then(response => {
+          this.competences = response.data;
+       }).catch(error => {
+           console.error('Erreur lors de récupération des compétences:', error);
+       })
+  },
   methods: {
     showDialog(name) {
       if (name === 'addSalarie') {
@@ -146,10 +160,10 @@ export default {
           const config = {
             headers: {
               'Content-Type': 'application/json',
-              'Access-Control-Allow-Origin': '*',
+
             }
           };
-          await axios.post('http://localhost/competences', { nom: this.newCompetenceName }, config);
+          await axios.post('http://localhost:8080/competences', { nom: this.newCompetenceName }, config);
           this.competences.push({ nom: this.newCompetenceName, id: this.competences.length + 1 });
           this.newCompetenceName = '';
         } catch (error) {

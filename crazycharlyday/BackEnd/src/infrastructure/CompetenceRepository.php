@@ -2,6 +2,8 @@
 
 namespace BackEnd\infrastructure;
 
+use PDO;
+
 class CompetenceRepository
 {
     private PDO $db;
@@ -13,14 +15,14 @@ class CompetenceRepository
 
     public function save($data): void
     {
-        $stmt = $this->db->prepare("INSERT INTO competences (nom) VALUES (:nom)");
+        $stmt = $this->db->prepare("INSERT INTO competence (nom) VALUES (:nom)");
         $stmt->bindParam(':nom', $data['nom']);
         $stmt->execute();
     }
 
     public function getAll(): array
     {
-        $stmt = $this->db->prepare("SELECT * FROM competences");
+        $stmt = $this->db->prepare("SELECT * FROM competence");
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }

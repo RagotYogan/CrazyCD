@@ -3,22 +3,24 @@
 namespace BackEnd\application\actions;
 
 use BackEnd\application\renderer\JsonRenderer;
-use BackEnd\core\services\ServiceCompetence;
+use BackEnd\core\services\ServiceBesoins;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 
-class GetCompetences
+class CreateBesoins
 {
-    private ServiceCompetence $competenceService;
-
-    public function __construct(ServiceCompetence $competenceService){
-        $this->competenceService = $competenceService;
+    private ServiceBesoins $besoinsService;
+    public function __construct(ServiceBesoins $besoinsService){
+        $this->besoinsService = $besoinsService;
     }
-
-    function __invoke(ServerRequestInterface $rq, ResponseInterface $rs, array $args): ResponseInterface
+    function __invoke( ServerRequestInterface $rq, ResponseInterface $rs, array $args): ResponseInterface
     {
-        $competences = $this->competenceService->getAllCompetences();
+        $body = $rq->getBody();
+        $data = json_decode($body->getContents(), true);
+        $this->besoinsService->createBesoins($data);
 
-        return JsonRenderer::render($rs, 200, $competences);
+
+        return JsonRenderer::render($rs, 201);
     }
+
 }
