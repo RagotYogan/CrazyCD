@@ -21,4 +21,12 @@ class BesoinsRepository
         $stmt->bindParam(':competence', $data['competence']);
         $stmt->execute();
     }
+
+    public function getBesoinsByClient($client): array
+    {
+        $stmt = $this->db->prepare("SELECT * FROM besoins WHERE client = :client");
+        $stmt->bindParam(':client', $client);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
 }
