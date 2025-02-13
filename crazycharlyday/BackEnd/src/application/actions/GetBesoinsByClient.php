@@ -16,9 +16,8 @@ class GetBesoinsByClient extends AbstractAction
 
     public function __invoke(ServerRequestInterface $rq, ResponseInterface $rs, array $args): ResponseInterface
     {
-        $client = $rq->getBody();
-        $client = json_decode($client->getContents(), true)['client'];
-        $besoins = $this->besoinsService->getBesoinsByClient($client);
+        $client = $rq->getQueryParams();
+        $besoins = $this->besoinsService->getBesoinsByClient($client['client']);
 
         return JsonRenderer::render($rs, 200, $besoins);
     }
