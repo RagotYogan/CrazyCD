@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 use BackEnd\application\actions\CreateBesoins;
 use BackEnd\application\actions\CreateCompetence;
+use BackEnd\application\actions\CreateSalarie;
 use BackEnd\application\actions\GetBesoinsByClient;
 use BackEnd\application\actions\GetCompetence;
 use BackEnd\application\actions\GetSalaries;

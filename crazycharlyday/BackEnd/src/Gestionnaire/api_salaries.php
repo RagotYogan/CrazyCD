@@ -25,6 +25,7 @@ switch ($request_method) {
         echo json_encode(['message' => 'Salarié ajouté avec succès']);
         break;
 
+
     // Ajoutez d'autres cas pour PUT et DELETE si nécessaire
 
     default:
