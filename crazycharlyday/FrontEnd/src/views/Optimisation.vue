@@ -33,7 +33,8 @@ export default {
         console.log('Uploading file:', file);
         const config = {
           headers: {
-            'Content-Type': 'multipart/form-data'
+            'Content-Type': 'multipart/form-data',
+            'Access-Control-Allow-Origin': '*'
           }
         };
 
