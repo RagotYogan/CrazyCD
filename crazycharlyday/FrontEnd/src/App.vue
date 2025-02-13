@@ -13,7 +13,7 @@ import { RouterView } from 'vue-router';
         <Button label="Optimisation" icon="pi pi-lightbulb" @click="$router.push('/optimisation')" class="p-button-text" />
       </template>
       <template #end>
-        <Button label="Se déconnecter" icon="pi pi-sign-out" class="p-button-text colorBlueAkt" @click="$router.push('/login')" />
+        <Button label="Se déconnecter" icon="pi pi-sign-out" class="p-button-text colorBlueAkt" @click="$router.push('/')" />
       </template>
     </Menubar>
   </header>

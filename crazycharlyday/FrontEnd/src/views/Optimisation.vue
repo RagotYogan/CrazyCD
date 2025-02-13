@@ -1,6 +1,6 @@
 <template>
   <div>
-    <FileUpload type="file" @change="handleFileUpload" accept=".csv" />
+    <input type="file" @change="handleFileUpload" accept=".csv" />
     <DataTable :value="tableData" v-if="tableData.length">
       <Column field="salarie" header="Salarié"></Column>
       <Column field="besoin" header="Besoin"></Column>
@@ -30,15 +30,10 @@ export default {
       if (file) {
         const formData = new FormData();
         formData.append('file', file);
+        console.log('Uploading file:', file);
 
         try {
-          const response = await axios.post('http://localhost:8080/optimisation', formData, {
-            headers: {
-              'Content-Type': 'multipart/form-data'
-            }
-          });
-
-          // Extract the "affectations" array from the response
+          const response = await axios.post('http://localhost:8080/optimisation', formData);
           this.tableData = response.data.affectations;
         } catch (error) {
           console.error('Error uploading file:', error);
