@@ -1,5 +1,6 @@
 <?php
-include 'connexionFactory.php';
+
+require_once 'connexionFactory.php';
 
 $pdo = connexionFactory::makeConnection();
 

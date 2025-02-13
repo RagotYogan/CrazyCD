@@ -143,7 +143,13 @@ export default {
     async addCompetence() {
       if (this.newCompetenceName) {
         try {
-          await axios.post('crazycharlyday/BackEnd/src/Gestionnaire/api_competences.php', { nom: this.newCompetenceName });
+          const config = {
+            headers: {
+              'Content-Type': 'application/json',
+              'Access-Control-Allow-Origin': '*',
+            }
+          };
+          await axios.post('http://localhost/competences', { nom: this.newCompetenceName }, config);
           this.competences.push({ nom: this.newCompetenceName, id: this.competences.length + 1 });
           this.newCompetenceName = '';
         } catch (error) {

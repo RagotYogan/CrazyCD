@@ -1,6 +1,6 @@
 <?php
 
-namespace src\Db;
+namespace BackEnd\infrastructure;
 
 class connexionFactory {
     private static $config;
