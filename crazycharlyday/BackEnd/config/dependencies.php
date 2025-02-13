@@ -3,6 +3,7 @@
 
 use BackEnd\application\actions\CreateBesoins;
 use BackEnd\application\actions\GetBesoinsByClient;
+use BackEnd\application\actions\UpdateBesoin;
 use BackEnd\core\services\ServiceBesoins;
 use BackEnd\infrastructure\BesoinsRepository;
 use Psr\Container\ContainerInterface;
@@ -29,6 +30,10 @@ return [
 
     GetBesoinsByClient::class => function(ContainerInterface $c) {
         return new GetBesoinsByClient($c->get(ServiceBesoins::class));
+    },
+
+    UpdateBesoin::class => function(ContainerInterface $c) {
+        return new UpdateBesoin($c->get(ServiceBesoins::class));
     }
 
 ];
