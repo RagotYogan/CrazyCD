@@ -102,7 +102,7 @@ export default {
         this.hideDialog('addSalarie');
 
         console.log('Enregistrement des salariés:', this.salaries);
-        //await axios.post('http://localhost:8080/salaries', this.salaries);
+        //await axios.post('http://docketu.iutnc.univ-lorraine.fr:60000/salaries', this.salaries);
       }
     },
   },
