@@ -3,10 +3,7 @@ require_once "Affectation.php";
 
 class Builders
 {
-    public static function CsvBuilder(int $score , array $affectations, string $filename): void {
-        echo "\n";
-        echo $score;
-        echo "\n";
+    public static function csvBuilder(int $score , array $affectations, string $filename): void {
         $file = fopen($filename, "w");
 
         // Ajouter l'en-tête du fichier CSV
@@ -26,7 +23,31 @@ class Builders
 
 
 
-    public static function BaseBuilder (array $affectation): void {
-        // cree un csv a partir de l'affectation
+    public static function jsonBuilder(int $score, array $affectations, string $filename): void {
+        $data = [
+            "score" => $score,
+            "affectations" => []
+        ];
+
+        // Ajouter les affectations sous forme de tableau associatif
+        foreach ($affectations as $affectation) {
+            $data["affectations"][] = [
+                "salarie" => $affectation[0]->nom,
+                "besoin" => $affectation[1],
+                "client" => $affectation[2]->nom
+            ];
+        }
+
+        // Convertir en JSON avec indentation pour une meilleure lisibilité
+        $json = json_encode($data, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
+
+        // Écrire dans le fichier
+        if (file_put_contents($filename, $json) === false) {
+            throw new Exception("Erreur lors de l'écriture du fichier JSON.");
+        }
+
+        echo "Exportation réussie : $filename\n";
     }
+
+
 }

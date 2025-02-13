@@ -18,4 +18,9 @@ $affectation = $affect->affecter($salaries,$clients);
 $score = $affect->calculerScore($affectation,$salaries,$clients);
 
 
-Builders::CsvBuilder($score, $affectation,"../DataTest/test.csv");
+Builders::csvBuilder($score, $affectation,"../DataTest/test.csv");
+try {
+    Builders::jsonBuilder($score, $affectation, "../DataTest/test.json");
+} catch (Exception $e) {
+
+}

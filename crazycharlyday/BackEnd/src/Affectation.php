@@ -55,7 +55,7 @@ class Affectation
             list($salarie, $besoin, $client) = $affectation;
             echo "Salarie: {$salarie->nom}, Besoin: {$besoin}, Client: {$client->nom}\n";
         }
-        echo $this->calculerScore($this->affectations, $salaries, $clients);
+        echo "Le score est de : {$this->calculerScore($this->affectations, $salaries, $clients)}";
         return $this->affectations;
     }
 

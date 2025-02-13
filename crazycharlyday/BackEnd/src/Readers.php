@@ -2,8 +2,53 @@
 
 class Readers
 {
-    public static function BaseReader(string $nomDefaut): array {
-        return ["Exemple" => 10]; // Placeholder pour une vraie requête BD
+    public static function lireJson(string $fichier): array {
+        $clients = [];
+        $salaries = [];
+
+        // Lire le contenu du fichier JSON
+        if (!file_exists($fichier)) {
+            throw new Exception("Fichier introuvable : $fichier");
+        }
+
+        $contenu = file_get_contents($fichier);
+        $data = json_decode($contenu, true);
+
+        if ($data === null) {
+            throw new Exception("Erreur de décodage JSON : " . json_last_error_msg());
+        }
+
+        // Traiter les clients et leurs besoins
+        if (isset($data["clients"])) {
+            foreach ($data["clients"] as $clientData) {
+                $nom = trim($clientData["nom"]);
+                if (!isset($clients[$nom])) {
+                    $clients[$nom] = new Client($nom);
+                }
+
+                foreach ($clientData["besoins"] as $typeBesoin) {
+                    $clients[$nom]->ajouterBesoin($typeBesoin);
+                }
+            }
+        }
+
+        // Traiter les salariés et leurs compétences
+        if (isset($data["salaries"])) {
+            foreach ($data["salaries"] as $salarieData) {
+                $nom = trim($salarieData["nom"]);
+                if (!isset($salaries[$nom])) {
+                    $salaries[$nom] = new Salarie($nom);
+                }
+
+                foreach ($salarieData["competences"] as $competence) {
+                    $typeCompetence = $competence["type"];
+                    $interet = isset($competence["interet"]) ? intval($competence["interet"]) : 0;
+                    $salaries[$nom]->ajouterCompetence($typeCompetence, $interet);
+                }
+            }
+        }
+
+        return ["clients" => array_values($clients), "salaries" => array_values($salaries)];
     }
 
 
