@@ -29,7 +29,7 @@ return function(\Slim\App $app): \Slim\App {
     $app->get('/salaries', GetSalaries::class)->setName('getSalaries');
     $app->post('/salaries', CreateSalarie::class)->setName('createSalarie');
 
-    $app->get('/optimisation', CreateOptimisation::class)->setName('createOptimisation');
+    $app->post('/optimisation', CreateOptimisation::class)->setName('createOptimisation');
 
 
     return $app;
