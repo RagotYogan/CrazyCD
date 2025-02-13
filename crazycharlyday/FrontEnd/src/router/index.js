@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import creationBesoin from "@/views/creationBesoin.vue";
+import GestionSalaries from "@/views/GestionSalaries.vue";
 import BesoinsView from "@/views/BesoinsView.vue";
 
 const router = createRouter({
@@ -17,10 +18,20 @@ const router = createRouter({
             component: creationBesoin,
         },
         {
+            path: '/gestion-salaries',
+            name: 'gestion-salaries',
+            component: GestionSalaries
+        },
+        {
             path: '/besoins/liste',
             name: 'listeBesoins',
             component: BesoinsView,
         },
+        // {
+        //     path: '/activites',
+        //     name: 'activites',
+        //     component: Activites,
+        // },
         // {
         //     path: '/signIn',
         //     name:'signIn',
