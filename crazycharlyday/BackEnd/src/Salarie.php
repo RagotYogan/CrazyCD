@@ -32,10 +32,10 @@ class Salarie {
         $this->affecte = $affecte;
     }
 
-    public function __toString(): string
-    {
-        return $this->nom;
-    }
+//    public function __toString(): string
+//    {
+//        return $this->nom;
+//    }
 
     public function trierTabComp():void{
         arsort($this->competences);
