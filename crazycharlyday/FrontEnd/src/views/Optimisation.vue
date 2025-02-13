@@ -33,7 +33,7 @@ export default {
         console.log('Uploading file:', file);
 
         try {
-          const response = await axios.post('http://localhost:8080/optimisation', formData);
+          const response = await axios.post('http://docketu.iutnc.univ-lorraine.fr:60081/optimisation', formData);
           this.tableData = response.data.affectations;
         } catch (error) {
           console.error('Error uploading file:', error);
