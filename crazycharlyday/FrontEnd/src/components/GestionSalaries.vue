@@ -52,6 +52,8 @@
 </template>
 
 <script>
+import axios from "axios";
+
 export default {
   data() {
     return {
@@ -93,11 +95,14 @@ export default {
         this.newCompetenceInteret = null;
       }
     },
-    addSalarie() {
+    async addSalarie() {
       if (this.newSalarie.nom && this.newSalarie.competences.length > 0) {
         this.salaries.push({ ...this.newSalarie });
         this.newSalarie = { nom: '', competences: [] };
         this.hideDialog('addSalarie');
+
+        console.log('Enregistrement des salariés:', this.salaries);
+        //await axios.post('http://docketu.iutnc.univ-lorraine.fr:60080/salaries', this.salaries);
       }
     },
   },
