@@ -174,7 +174,7 @@ export default {
 
             }
           };
-          await axios.post('http://localhost:8080/competences', { nom: this.newCompetenceName }, config);
+          await axios.post('http://docketu.iutnc.univ-lorraine.fr:60080/competences', { nom: this.newCompetenceName }, config);
           this.competences.push({ nom: this.newCompetenceName, id: this.competences.length + 1 });
           this.newCompetenceName = '';
         } catch (error) {
