@@ -1,0 +1,40 @@
+public function affecter(array $salaries, array $clients)
+{
+    foreach ($clients as $client) {
+        $besoins = $client->getBesoins();
+        foreach ($besoins as $besoin => $affect) {
+            $interetMax = PHP_INT_MIN;
+            $salarieMax = null;
+            foreach ($salaries as $salarie) {
+                $interet = $salarie->getInteret($besoin);
+
+                if ($interet > $interetMax && !$salarie->getAffecte()) {
+                    $interetMax = $interet;
+                    $salarieMax = $salarie;
+                }
+            }
+            if ($salarieMax !== null) {
+                echo "Le meilleur salarié est {$salarieMax}\n";
+
+                // Ajouter dans le tableau d'affectation
+                $affectations[] = [$salarieMax, $besoin, $client];
+                $salarieMax->setAffecte(true);
+                $client->setBesoinAffecte($besoin);
+            } else {
+                echo "Aucun salarié trouvé pour le besoin $besoin\n";
+            }
+        }
+    }
+    foreach ($affectations as $affectation) {
+        list($salarie, $besoin, $client) = $affectation;
+        echo "Salarie: {$salarie->nom}, Besoin: {$besoin}, Client: {$client->nom}\n";
+    }
+    echo $this->calculerScore($affectations, $salaries, $clients);
+}
+
+
+Résultats :
+
+metier_1 : 20
+metier_2 : 1
+metier_3 : 40
