@@ -1,22 +1,25 @@
 <script>
-import Besoin from "@/components/Besoin.vue";
 import InputText from "primevue/inputtext";
 import Button from "primevue/button";
 import axios from "axios";
 import Toastify from "toastify-js";
 import "toastify-js/src/toastify.css"
+import BesoinModal from "@/views/BesoinModal.vue";
 
 export default {
     name: "ListeBesoins",
     components: {
-        Besoin,
+        BesoinModal,
         InputText,
         Button,
+
     },
     data() {
         return {
             besoins: [],
             client: "",
+            besoin: null,
+            isVisible: false
         };
     },
     methods:{
@@ -33,7 +36,6 @@ export default {
             axios.get('http://localhost:8080/besoins', config)
                 .then(response => {
                     this.besoins = response.data;
-                    console.log("Besoins récupérés :", this.besoins);
                     if (this.besoins.length === 0) {
                         Toastify({
                             text: 'Aucun besoin trouvé pour ce client',
@@ -48,6 +50,31 @@ export default {
                 .catch(error => {
                     console.error("Erreur lors de la récupération des besoins :", error);
                 })
+        },
+        modifierBesoin(besoin) {
+            this.besoin = { ...besoin};
+            this.isVisible = true;
+        },
+        closeModal() {
+            this.isVisible = false;
+        },
+        handleUpdateBesoin(updatedBesoin) {
+            const besoin = {
+                id_besoins: updatedBesoin.id_besoins,
+                libelle: updatedBesoin.libelle,
+                competence: updatedBesoin.competence,
+            };
+            const index = this.besoins.findIndex(b => b.id_besoins === updatedBesoin.id_besoins);
+            if (index !== -1) {
+                this.besoins[index] = updatedBesoin;
+                const config = {
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                };
+                axios.patch(`http://localhost:8080/besoins/${updatedBesoin.id_besoins}`, besoin, config)
+            }
+            this.closeModal();
         }
     }
 }
@@ -71,9 +98,17 @@ export default {
                 <li v-for="besoin in besoins" :key="besoin.id">
                     <h3>Besoin: </h3><p>{{ besoin.libelle }}</p>
                     <h3>Compétence: </h3><p>{{ besoin.competence }}</p>
+                    <Button @click="modifierBesoin(besoin)" class="btn-modif">Modification</Button>
                 </li>
             </ul>
         </div>
+        <BesoinModal
+            :besoin=this.besoin
+            :isVisible="isVisible"
+            @close="isVisible = false"
+            @updateBesoin="handleUpdateBesoin"
+            @closeModal="closeModal"
+        />
     </div>
 </template>
 
@@ -160,7 +195,7 @@ h3{
     box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
 }
 
-.btn-submit {
+.btn-submit, .btn-modif {
     width: 100%;
     padding: 10px;
     background: #007bff; /* Bleu principal */
@@ -173,15 +208,16 @@ h3{
     transition: background 0.3s ease-in-out, transform 0.1s ease-in-out;
 }
 
-.btn-submit:hover {
+.btn-submit:hover, .btn-modif:hover {
+
     background: #0056b3; /* Bleu plus foncé au survol */
 }
 
-.btn-submit:active {
+.btn-submit:active, .btn-modif:active {
     transform: scale(0.98); /* Effet de clic */
 }
 
-.btn-submit:disabled {
+.btn-submit:disabled, .btn-modif:disabled {
     background: #ccc;
     cursor: not-allowed;
     opacity: 0.7;
