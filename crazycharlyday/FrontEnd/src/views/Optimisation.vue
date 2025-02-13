@@ -13,7 +13,6 @@
 import DataTable from 'primevue/datatable';
 import axios from 'axios';
 import FileUpload from "primevue/fileupload";
-import {defineConfig} from "vite";
 
 export default {
   components: {
