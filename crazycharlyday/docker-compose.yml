@@ -7,7 +7,7 @@ services:
     image: node:22
     container_name: front
     ports:
-      - "3000:5173"
+      - "60000:5173"
     working_dir: /app
     volumes:
       - ./FrontEnd/:/app
@@ -20,7 +20,7 @@ services:
       dockerfile: 8.3-cli.Dockerfile
     container_name: back
     ports:
-      - "8080:80"
+      - "60080:80"
     working_dir: /var/php
     volumes:
       - ./BackEnd/:/var/php
@@ -35,7 +35,7 @@ services:
       POSTGRES_PASSWORD: root
       POSTGRES_DB: db
     ports:
-      - "5432:5432"
+      - "60432:5432"
     volumes:
       - ./sql/init-postgres:/docker-entrypoint-initdb.d
       - db:/var/lib/postgresql/data
@@ -43,4 +43,4 @@ services:
   adminer:
     image: adminer
     ports:
-      - '40010:8080'
+      - '60010:8080'
