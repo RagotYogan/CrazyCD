@@ -105,13 +105,13 @@ export default {
               'Content-Type': 'application/json',
           }
       };
-      await axios.get('http://docketu.iutnc.univ-lorraine.fr:60000/competences',config)
+      await axios.get('http://docketu.iutnc.univ-lorraine.fr:60080/competences',config)
        .then(response => {
           this.competences = response.data;
        }).catch(error => {
            console.error('Erreur lors de récupération des compétences:', error);
        })
-       await axios.get('http://docketu.iutnc.univ-lorraine.fr:60000/salaries', config)
+       await axios.get('http://docketu.iutnc.univ-lorraine.fr:60080/salaries', config)
            .then(response => {
                 this.salaries = response.data;
                 console.log(this.salaries)

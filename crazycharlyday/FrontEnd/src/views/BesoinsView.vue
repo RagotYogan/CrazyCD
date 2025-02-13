@@ -72,7 +72,7 @@ export default {
                         'Content-Type': 'application/json'
                     }
                 };
-                axios.patch(`http://docketu.iutnc.univ-lorraine.fr:60000/besoins/${updatedBesoin.id_besoins}`, besoin, config)
+                axios.patch(`http://docketu.iutnc.univ-lorraine.fr:60080/besoins/${updatedBesoin.id_besoins}`, besoin, config)
             }
             this.closeModal();
         }
