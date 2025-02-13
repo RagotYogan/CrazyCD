@@ -6,6 +6,8 @@ import Textarea from "primevue/textarea";
 import Button from 'primevue/button';
 import Toastify from "toastify-js";
 import "toastify-js/src/toastify.css"
+import axios from 'axios';
+
 export default {
     name: "CreationBesoins",
     data() {
@@ -24,21 +26,18 @@ export default {
         Button,
     },
     methods: {
-        validateForm() {
-            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            const isEmail = emailPattern.test(this.clientName);
-
-            if (!isEmail) {
-                this.afficherToastify("Veuillez saisir une adresse email valide.");
-                return false;
+        async validateForm() {
+            if (!this.clientName.trim()) {
+                this.afficherToastify("Veuillez saisir un nom de client.");
+                return;
             }
             if (!this.libelleBesoins.trim()) {
                 this.afficherToastify("Veuillez saisir un libellé pour le besoin.");
-                return false;
+                return;
             }
             if (!this.competencesRequises.trim() && !this.metierRequis.trim()) {
                 this.afficherToastify("Veuillez saisir au moins une compétence ou un métier.");
-                return false;
+                return;
             }
 
             this.afficherToastify("Formulaire soumis avec succès.");
@@ -49,8 +48,13 @@ export default {
                 competence: (!this.competencesRequises.trim() ? this.metierRequis : this.competencesRequises),
 
             }
-            console.log(besoin);
-            return this.clientName && this.libelleBesoins && (this.competencesRequises || this.metierRequis);
+            const config = {
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            };
+
+            await axios.post('http://localhost:8080/besoins', besoin, config);
         },
         afficherToastify(message){
             Toastify({

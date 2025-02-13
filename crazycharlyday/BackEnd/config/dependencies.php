@@ -2,6 +2,7 @@
 
 
 use BackEnd\application\actions\CreateBesoins;
+use BackEnd\application\actions\GetBesoinsByClient;
 use BackEnd\core\services\ServiceBesoins;
 use BackEnd\infrastructure\BesoinsRepository;
 use Psr\Container\ContainerInterface;
@@ -24,6 +25,10 @@ return [
 
     CreateBesoins::class => function(ContainerInterface $c) {
         return new CreateBesoins($c->get(ServiceBesoins::class));
+    },
+
+    GetBesoinsByClient::class => function(ContainerInterface $c) {
+        return new GetBesoinsByClient($c->get(ServiceBesoins::class));
     }
 
 ];
