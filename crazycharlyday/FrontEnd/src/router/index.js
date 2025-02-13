@@ -1,15 +1,31 @@
-// router/index.js
-import { createRouter, createWebHistory } from 'vue-router';
-import GestionSalaries from '../components/GestionSalaries.vue';
-
-const routes = [
-    { path: '/', component: GestionSalaries },
-    // Ajoutez d'autres routes ici si nécessaire
-];
+import { createRouter, createWebHistory } from 'vue-router'
+import HomeView from '../views/HomeView.vue'
+import creationBesoin from "@/views/creationBesoin.vue";
 
 const router = createRouter({
-    history: createWebHistory("/"),
-    routes,
-});
+    history: createWebHistory(import.meta.env.BASE_URL),
+    routes: [
+        {
+            path: '/',
+            name: 'home',
+            component: HomeView,
+        },
+        {
+            path: '/besoins',
+            name: 'besoins',
+            component: creationBesoin,
+        },
+        // {
+        //     path: '/activites',
+        //     name: 'activites',
+        //     component: Activites,
+        // },
+        // {
+        //     path: '/signIn',
+        //     name:'signIn',
+        //     component: () => import('../views/SignIn.vue'),
+        // }
+    ],
+})
 
-export default router;
+export default router
