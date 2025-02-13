@@ -105,13 +105,13 @@ export default {
               'Content-Type': 'application/json',
           }
       };
-      await axios.get('http://docketu.iutnc.univ-lorraine.fr:60080/competences',config)
+      await axios.get('http://docketu.iutnc.univ-lorraine.fr:60081/competences',config)
        .then(response => {
           this.competences = response.data;
        }).catch(error => {
            console.error('Erreur lors de récupération des compétences:', error);
        })
-       await axios.get('http://docketu.iutnc.univ-lorraine.fr:60080/salaries', config)
+       await axios.get('http://docketu.iutnc.univ-lorraine.fr:60081/salaries', config)
            .then(response => {
                 this.salaries = response.data;
                 console.log(this.salaries)
@@ -174,7 +174,7 @@ export default {
 
             }
           };
-          await axios.post('http://docketu.iutnc.univ-lorraine.fr:60080/competences', { nom: this.newCompetenceName }, config);
+          await axios.post('http://docketu.iutnc.univ-lorraine.fr:60081/competences', { nom: this.newCompetenceName }, config);
           this.competences.push({ nom: this.newCompetenceName, id: this.competences.length + 1 });
           this.newCompetenceName = '';
         } catch (error) {
