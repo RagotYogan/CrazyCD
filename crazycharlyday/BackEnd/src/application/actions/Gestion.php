@@ -2,27 +2,30 @@
 
 namespace BackEnd\application\actions;
 
-use BackEnd\infrastructure\ConnexionFactory;
+use BackEnd\infrastructure\CompetenceRepository;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 
 class Gestion
 {
+    private CompetenceRepository $competenceRepository;
+
+    public function __construct(CompetenceRepository $competenceRepository)
+    {
+        $this->competenceRepository = $competenceRepository;
+    }
+
     public function __invoke(ServerRequestInterface $rq, ResponseInterface $rs, array $args): ResponseInterface
     {
-        $pdo = ConnexionFactory::makeConnection();
         $method = $rq->getMethod();
 
         if ($method === 'OPTIONS') {
             return $rs->withStatus(200);
         }
 
-
         if ($method === 'GET') {
             // Récupérer toutes les compétences
-            $statement = $pdo->prepare("SELECT * FROM competences");
-            $statement->execute();
-            $competences = $statement->fetchAll(\PDO::FETCH_ASSOC);
+            $competences = $this->competenceRepository->getAll();
             $rs->getBody()->write(json_encode($competences));
             return $rs->withHeader('Content-Type', 'application/json')->withStatus(200);
         }
@@ -35,8 +38,7 @@ class Gestion
                     ->write(json_encode(['error' => 'Nom requis']));
             }
 
-            $statement = $pdo->prepare("INSERT INTO competences (nom) VALUES (?)");
-            $statement->execute([$data['nom']]);
+            $this->competenceRepository->save($data);
 
             $rs->getBody()->write(json_encode(['message' => 'Compétence ajoutée avec succès']));
             return $rs->withHeader('Content-Type', 'application/json')->withStatus(201);

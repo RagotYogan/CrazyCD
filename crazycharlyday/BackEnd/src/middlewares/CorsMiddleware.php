@@ -15,7 +15,7 @@ class CorsMiddleware{
             $responseFactory = new ResponseFactory();
             $response = $responseFactory->createResponse(204);
             return $response
-                ->withHeader('Access-Control-Allow-Origin', $origin)
+                ->withHeader('Access-Control-Allow-Origin', "*")
                 ->withHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS')
                 ->withHeader('Access-Control-Allow-Headers', 'Authorization, Content-Type, X-Requested-With, access-token')
                 ->withHeader('Access-Control-Max-Age', '3600')

@@ -1,7 +1,6 @@
 <?php
 declare(strict_types=1);
 
-
 use BackEnd\application\actions\CreateBesoins;
 use BackEnd\application\actions\GetBesoinsByClient;
 use BackEnd\application\actions\HomeAction;
@@ -10,6 +9,7 @@ use BackEnd\application\actions\Gestion;
 
 return function(\Slim\App $app): \Slim\App {
     $app->add(CorsMiddleware::class);
+
 
     // Routes
     $app->get('/', HomeAction::class)->setName('home');
