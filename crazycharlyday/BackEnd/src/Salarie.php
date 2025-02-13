@@ -37,5 +37,10 @@ class Salarie {
         return $this->nom;
     }
 
+    public function trierTabComp():void{
+        arsort($this->competences);
+    }
+
+
 
 }

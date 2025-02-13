@@ -31,4 +31,9 @@ class Client {
     {
         return $this->nom;
     }
+
+    public function resetBesoinAffecte(string $besoin)
+    {
+        $this->besoins[$besoin] = false;
+    }
 }

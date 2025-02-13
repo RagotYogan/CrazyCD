@@ -2,7 +2,7 @@
 
 class Affectation
 {
-    public array $affectations = []; // List<Tuple<String, String>>
+    public array $affectations = [];
     public int $score;
 
     public function __construct()
@@ -10,38 +10,49 @@ class Affectation
         $this->score = 0;
     }
 
-    public function affecter(array $salaries, array $clients)
+    public function affecter(array $salaries, array $clients): void
     {
+        $superTab = [];
         foreach ($clients as $client) {
             $besoins = $client->getBesoins();
+            $first = true;
             foreach ($besoins as $besoin => $affect) {
-                $interetMax = PHP_INT_MIN;
-                $salarieMax = null;
-                foreach ($salaries as $salarie) {
-                    $interet = $salarie->getInteret($besoin);
-
-                    if ($interet > $interetMax && !$salarie->getAffecte()) {
-                        $interetMax = $interet;
-                        $salarieMax = $salarie;
-                    }
+                if (!isset($superTab[$besoin])) {
+                    $superTab[$besoin] = [];
                 }
-                if ($salarieMax !== null) {
-                    echo "Le meilleur salarié est {$salarie}\n";
-
-                    // Ajouter dans le tableau d'affectation
-                    $affectations[] = [$salarieMax, $besoin, $client];
-                    $salarieMax->setAffecte(true);
-                    $client->setBesoinAffecte($besoin);
+                if ($first) {
+                    array_unshift($superTab[$besoin], $client);
+                    $first = false;
                 } else {
-                    echo "Aucun salarié trouvé pour le besoin $besoin\n";
+                    $superTab[$besoin][] = $client;
                 }
             }
         }
-        foreach ($affectations as $affectation) {
+        foreach ($salaries as $salarie) {
+            $salarie->trierTabComp();
+            while(!$salarie->getAffecte()){
+                for ($i = 0; $i < count($superTab); $i++) {
+                    if ($i == count($salarie->competences ) || $salarie->getAffecte()){
+                        break;
+                    }
+                    $type = array_keys($salarie->competences)[$i];
+                    if (!empty($superTab[$type])){
+                        // Ajouter dans le tableau d'affectation
+                        $this->affectations[] = [$salarie, $type, $superTab[$type][0]];
+                        $salarie->setAffecte(true);
+                        $superTab[$type][0]->setBesoinAffecte($type);
+                        // Unset dans supertab l'élément ajouté
+                        array_shift($superTab[$type]);
+                    }
+                }
+                break;
+            }
+        }
+        foreach ($this->affectations as $affectation) {
             list($salarie, $besoin, $client) = $affectation;
             echo "Salarie: {$salarie->nom}, Besoin: {$besoin}, Client: {$client->nom}\n";
         }
-        echo $this->calculerScore($affectations, $salaries, $clients);
+        echo $this->calculerScore($this->affectations, $salaries, $clients);
     }
 
 
