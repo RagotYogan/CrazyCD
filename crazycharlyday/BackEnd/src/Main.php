@@ -6,11 +6,11 @@ require_once "Readers.php";
 
 
 // Lire les données du CSV
-$data = Readers::lireCsv("../DataTest/metier_1.csv");
+$data = Readers::lireCsv("../DataTest/metier_3.csv");
 
 // Récupérer les objets Clients et Salariés
 $clients = $data["clients"];
 $salaries = $data["salaries"];
 
-(new Affectation)->affecter($salaries,$clients);
+(new Affectation)->affecterBacktracking($salaries,$clients);
 
