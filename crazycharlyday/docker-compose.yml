@@ -43,4 +43,4 @@ services:
   adminer:
     image: adminer
     ports:
-      - '60010:8080'
+      - '60010:80'
