@@ -1,0 +1,46 @@
+volumes:
+  db:
+    driver: local
+
+services:
+  front:
+    image: node:22
+    container_name: front
+    ports:
+      - "3000:5173"
+    working_dir: /app
+    volumes:
+      - ./FrontEnd/:/app
+    command: sh -c "npm install && npm run dev -- --host"
+
+
+  back:
+    build:
+      context: build
+      dockerfile: 8.3-cli.Dockerfile
+    container_name: back
+    ports:
+      - "8080:80"
+    working_dir: /var/php
+    volumes:
+      - ./BackEnd/:/var/php
+    command: php -S 0.0.0.0:80 -t /var/php/public
+
+  db:
+    image: postgres:latest
+    container_name: db
+    restart: always
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: root
+      POSTGRES_DB: db
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./sql/init-postgres:/docker-entrypoint-initdb.d
+      - db:/var/lib/postgresql/data
+
+  adminer:
+    image: adminer
+    ports:
+      - '40010:8080'
